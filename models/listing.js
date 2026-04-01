@@ -34,6 +34,18 @@ const listingSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User"
+    },
+    // Geometry field to store the geographic coordinates of the listing's location, which is used for mapping and geospatial queries in the application. The geometry field is defined as a GeoJSON Point type, which includes a type property that specifies the geometry type (in this case, "Point") and a coordinates property that stores an array of numbers representing the longitude and latitude of the listing's location.
+    geometry: {
+        type: {
+            type: String, 
+            enum: ["Point"], 
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
     }
 });
 

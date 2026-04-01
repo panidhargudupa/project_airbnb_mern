@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Listing = require("../models/listing");
-const wrapAsync = require("../utils/WrapAsync");
+const wrapAsync = require("../utils/wrapAsync");
 const { validateListing, isAuthor } = require("../middleware");
 const { isLoggedIn } = require("../middleware"); // Importing the isLoggedIn middleware to protect certain routes
 
@@ -29,7 +29,9 @@ router.route("/:id") // Defining routes for a specific listing identified by its
           // Show Route
           .get(wrapAsync(listingController.show)) // Route to display the details of a specific listing, identified by its ID in the URL, using the show method from the listing controller to fetch the listing data and render the appropriate view, wrapped in the wrapAsync utility to handle any asynchronous errors that may occur during the execution of the route handler.
           // Update Route
-          .put(isLoggedIn,isAuthor,validateListing ,wrapAsync(listingController.update)) // Route to handle the updating of an existing listing, identified by its ID in the URL, protected by both the isLoggedIn and isAuthor middleware to ensure that only authenticated users who are the authors can update a listing, and using the update method from the listing controller to handle the logic for updating the listing, wrapped in the wrapAsync utility to handle any asynchronous errors that may occur during the execution of the route handler.
+          .put(isLoggedIn,isAuthor,validateListing,
+                    upload.single("listing[image]"),// Middleware to handle the file upload for the listing image when updating a listing, allowing users to upload a new image file associated with the listing, and specifying the field name in the form as "listing[image]" to match the expected format for handling nested form data in Express.
+                    wrapAsync(listingController.update)) // Route to handle the updating of an existing listing, identified by its ID in the URL, protected by both the isLoggedIn and isAuthor middleware to ensure that only authenticated users who are the authors can update a listing, and using the update method from the listing controller to handle the logic for updating the listing, wrapped in the wrapAsync utility to handle any asynchronous errors that may occur during the execution of the route handler.
           // Delete Route
           .delete(isLoggedIn,isAuthor, wrapAsync(listingController.delete)); // Route to handle the deletion of an existing listing, identified by its ID in the URL, protected by both the isLoggedIn and isAuthor middleware to ensure that only authenticated users who are the authors can delete a listing, and using the delete method from the listing controller to handle the logic for deleting the listing, wrapped in the wrapAsync utility to handle any asynchronous errors that may occur during the execution of the route handler.
 

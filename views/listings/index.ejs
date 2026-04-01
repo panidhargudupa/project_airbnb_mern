@@ -1,14 +1,94 @@
 <% layout("/layouts/boilerplate") %>
 
 <body>
-    <h3>StayNest</h3>
+  
+    <div class="category-bar">
+    <div class="cat-wrapper">
+        <!-- <button class="cat-arrow" id="scrollLeft"><i class="fa-solid fa-chevron-left"></i></button> -->
+        
+        <div class="category-scroll" id="categoryScroll">
+            <div class="category-item active">
+                <i class="fa-solid fa-fire"></i>
+                <span>Trending</span>
+            </div>
+            <div class="category-item">
+                <i class="fa-solid fa-water"></i>
+                <span>Lakefront</span>
+            </div>
+            <div class="category-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Tiny homes</span>
+            </div>
+            <div class="category-item">
+                <i class="fa-solid fa-tree"></i>
+                <span>Treehouses</span>
+            </div>
+            <div class="category-item">
+                <i class="fa-solid fa-mountain"></i>
+                <span>Countryside</span>
+            </div>
+            <div class="category-item">
+                <i class="fa-solid fa-landmark"></i>
+                <span>Historical</span>
+            </div>
+            <div class="category-item">
+                <i class="fa-solid fa-umbrella-beach"></i>
+                <span>Beachfront</span>
+            </div>
+            <div class="category-item">
+                <i class="fa-solid fa-leaf"></i>
+                <span>Tropical</span>
+            </div>
+            <div class="category-item">
+                <i class="fa-solid fa-snowflake"></i>
+                <span>Arctic</span>
+            </div>
+            <div class="category-item">
+                <i class="fa-solid fa-city"></i>
+                <span>City</span>
+            </div>
+        </div>
+
+        <!-- <button class="cat-arrow" id="scrollRight"><i class="fa-solid fa-chevron-right"></i></button> -->
+    </div>
+
+    <!-- Filter + Toggle -->
+    <div class="cat-actions">
+        <!-- Filter Dropdown -->
+        <div class="dropdown">
+            <button class="filter-btn dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fa-solid fa-sliders"></i> Filters
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end filter-dropdown">
+                <li><h6 class="dropdown-header">Property Type</h6></li>
+                <li><a class="dropdown-item" href="#">Rooms</a></li>
+                <li><a class="dropdown-item" href="#">Houses</a></li>
+                <li><a class="dropdown-item" href="#">Apartments</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><h6 class="dropdown-header">Price Range</h6></li>
+                <li><a class="dropdown-item" href="#">Under ₹1,000</a></li>
+                <li><a class="dropdown-item" href="#">₹1,000 – ₹5,000</a></li>
+                <li><a class="dropdown-item" href="#">Above ₹5,000</a></li>
+            </ul>
+        </div>
+
+        <!-- Toggle -->
+        <div class="tax-toggle">
+            <span>Display total before taxes</span>
+            <div class="toggle-switch" id="taxToggle">
+                <div class="toggle-knob"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- <form method="GET" action="/listings/new">
         <button>
                 Create New Posting
         </button>
     </form> -->
    
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
         <% for(let listing of allListings) { %>
             <a href="/listings/<%= listing._id %>" class="listing-link">
             <div class="card col listing-card" >
@@ -18,7 +98,7 @@
                 <p class="card-text"> 
                     <b><%= listing.title %></b> 
                     <br>
-                    &#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %> / night
+                    &#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %> / night <i class="tax-info" style="display: none;"> +18% GST</i>
                 </p>
             </div>
             </div>

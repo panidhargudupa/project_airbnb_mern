@@ -11,6 +11,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressErr");
 const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
 const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
@@ -22,12 +23,24 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const listingRoutes = require("./routes/listing");
 const reviewRoutes = require("./routes/review");
 const userRoutes = require("./routes/user.js");
+const { mongo } = require("mongoose");
 
 
 // DB
-mongoose.connect("mongodb://127.0.0.1:27017/airbnb")
-.then(()=> console.log("DB Connected"))
-.catch(err=> console.log(err));
+// mongoose.connect("mongodb://127.0.0.1:27017/airbnb")
+// .then(()=> console.log("DB Connected"))
+// .catch(err=> console.log(err));
+
+// DB ATLAS
+const dbUrl = process.env.ATLASDB_URI;
+
+main()
+    .then(() => console.log("DB Connected"))
+    .catch((err) => console.log(err));
+    
+async function main() {
+    await mongoose.connect(dbUrl);
+}
 
 
 // VIEW ENGINE
@@ -39,9 +52,23 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname,"public")));
 
+// Store session in MongoDB using connect-mongo
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    crypt: {
+        secret: process.env.SECRET,
+    },
+    touchAfter: 24 * 60 * 60 // time period in seconds  
+});
+
+store.on("error", function(e){
+    console.log("Session Store Error", e);
+});
+
 //SESSION OPTIONS
 const sessionOptions = {
-    secret: "thisshouldbeabettersecret",
+    store: store,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -50,6 +77,7 @@ const sessionOptions = {
         httpOnly: true
     },
 };
+
 app.use(session(sessionOptions));
 app.use(flash()); // Flash messages
 
@@ -80,9 +108,9 @@ app.use((req, res, next) => {
 //     });
 
 // HOME
-app.get("/",(req,res)=>{
-    res.send("Working");
-});
+// app.get("/",(req,res)=>{
+//     res.send("Working");
+// });
 
 // ROUTERS
 app.use("/listings", listingRoutes);

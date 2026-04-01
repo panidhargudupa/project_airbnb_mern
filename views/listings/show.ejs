@@ -1,4 +1,5 @@
 <% layout("/layouts/boilerplate") %>
+<!-- This EJS template renders the details of a specific listing, including its title, description, price, location, and reviews. It also includes functionality for users to leave reviews and view the listing's location on an interactive map using Mapbox GL JS. -->
 
 <div class="row mt-3">
     <div class="col-8 offset-2">
@@ -10,7 +11,9 @@
                 <p class="card-text">
                    <p><i><b>Ownerd by: <%= listing.owner?.username || "Unknown User" %></b></i></p>
                     <p><%= listing.description %> </p>
-                    <p>&#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %></p>
+                    
+                    <p><b>Price:</b> &#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %></p>
+                    
                     <p><%= listing.location %></p>
                     <p><%= listing.country %></p>
                 </p>
@@ -32,6 +35,7 @@
          
         <div class="mb-3 mt-3">
             <% if(currentUser) { %>
+                <hr>
             <h4>Leave a review</h4>
                 <form method="post" action="/listings/<%= listing._id %>/reviews" novalidate class="needs-validation">
                     <label for="rating" class="form-label">Rating</label>
@@ -51,7 +55,7 @@
                     </fieldset>
                     </div>
 
-                    <div class="mb-3 mt-3">
+                    <div class="mb-3 mt-2">
                         <label for="comment" class="form-label">comment</label>
                         <textarea col="30" row="30" id="comment" name="review[comment]" class="form-control" required></textarea>
                         <div class="invalid-feedback">
@@ -61,20 +65,19 @@
                     <button class="btn btn-outline-dark mb-3 mt-3">Submit</button>
                 </form>
          <% } %>       
-                <hr>
+                
 
 
 
-
-
-        <p><b>All Reviews</b></p>
-
+        <% if(listing.reviews.length > 0) { %>    
+              
         <div class="row">
+            <hr>
+            <p><b>All Reviews</b></p>
 
             <% for(let review of listing.reviews) { %>
 
                 <div class="col-md-6 mb-3">
-
                     <div class="card">
                         <div class="card-body ms-2 mt-2 mb-2">
 
@@ -89,17 +92,29 @@
                             <button class="btn btn-sm btn-outline-dark"><i class="fa-solid fa-trash"></i></button>
                         </form>
                         <% } %>
-
                     </div>
-
                 </div>
-
             <% } %>
-
         </div>
+        <% } %>
 
+<hr>
+        <!-- Mapbox GL JS for interactive maps in the listing details page, allowing users to view the location of the listing on a map and providing an enhanced user experience when exploring the listing's location. -->
+        <div class="col-md-6 mb-3">
+            <h4>Where you'll be</h4><br>
+            <div id="map"></div>
+        </div>
         </div>
         
-
+        
+    
+    
     </div>
 </div>
+
+<script>
+    const mapToken = "<%= process.env.MAP_TOKEN %>";
+    const listing = <%- JSON.stringify(listing) %>;
+</script>
+
+<script src="/js/maps.js"></script>

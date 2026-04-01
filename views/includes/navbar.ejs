@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-regular fa-compass"></i></a>
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/listings">
+    <i class="fa-regular fa-compass"></i> STAYNEST
+    </a>
     <!-- The button that appears on smaller screens to toggle the navigation menu -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -10,22 +12,32 @@
     <div class="collapse navbar-collapse" id="navbarNav">
      <!--Show the Home, All Listings, and Add New Listings links only if the user is authenticated -->
       <div class="navbar-nav">
-          <a class="nav-link " href="/">Home</a>
-          <a class="nav-link" href="/listings">All Listings</a>
-          <a class="nav-link" href="/listings/new">Add New Listings</a>
+
+          <a class="nav-link" href="/listings">Explore</a>
+         
       </div>
+
+
+      <!-- search -->
+       <div class="navbar-nav ms-auto me-3">
+          <form class="d-flex">
+          <input class="search-bar form-control me-2" type="search" placeholder="Search destinations" aria-label="Search">
+          <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </form>
+       </div>
 
       <!--  Show the Sign Up, Login, and Logout links only if the user is not authenticated> -->
      <div class="navbar-nav ms-auto">
+       <a class="nav-link list-btn" href="/listings/new">List your StayNest</a>
         <!-- If the user is not authenticated, show the Sign Up and Login links -->
         <% if(!currentUser) {  %>
-          <a class="nav-link " href="/signup">Sign Up</a>
-          <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link " href="/signup"><b>Sign Up</b></a>
+          <a class="nav-link" href="/login"><b>Login</b></a>
         <% } %>
 
         <!--If the user is authenticated, show the Logout link  -->
         <% if(currentUser) {  %>
-          <a class="nav-link" href="/logout">Logout</a>
+          <a class="nav-link" href="/logout"><b>Logout</b></a>
         <% } %>
 
       </div>

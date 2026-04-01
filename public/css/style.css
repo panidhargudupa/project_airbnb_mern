@@ -145,3 +145,268 @@ body {
     align-items: center;
     margin-bottom: 2rem;
 }
+
+.list-btn {
+    background-color: #FF385C;  /* Airbnb red */
+    color: white !important;
+    border-radius: 20px;
+    padding: 8px 16px !important;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.list-btn:hover {
+    background-color: #e0304f;
+    color: white !important;
+}
+
+
+/* ===== CATEGORY BAR ===== */
+.category-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    border-bottom: 1px solid #ddd;
+    background: white;
+    gap: 16px;
+}
+
+.cat-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    overflow: hidden;
+}
+
+
+.category-scroll {
+    display: flex;
+    flex-direction: row;
+    gap: 28px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.category-item {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    opacity: 0.6;
+    font-size: 12px;
+    padding-bottom: 8px;
+    min-width: fit-content;
+    border-bottom: 2px solid transparent;
+}
+
+.category-item i {
+    font-size: 22px;
+}
+
+.category-item:hover {
+    opacity: 1;
+}
+
+.category-item.active {
+    opacity: 1;
+    border-bottom: 2px solid black;
+}
+
+/* ===== FILTER + TOGGLE ===== */
+.cat-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.filter-btn:hover {
+    border-color: #222;
+}
+
+.filter-dropdown {
+    min-width: 220px;
+    padding: 8px 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.tax-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.toggle-switch {
+    width: 44px;
+    height: 24px;
+    background: #ddd;
+    border-radius: 12px;
+    position: relative;
+    transition: background 0.3s;
+    flex-shrink: 0;
+}
+
+.toggle-switch.on {
+    background: #222;
+}
+
+.toggle-knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: left 0.3s;
+}
+
+.toggle-switch.on .toggle-knob {
+    left: 22px;
+}
+
+.tax-info {
+    display: none;
+    font-size: 0.8rem;
+    color: #717171;
+}
+
+/* Map css dimension */
+#map { 
+    width: 852px;
+    height: 40vh;
+    border-radius: 1rem;
+ }
+
+/* ===== GST TAX TOGGLE ===== */
+.price-section {
+    margin: 15px 0;
+}
+
+.tax-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0;
+}
+
+.tax-label {
+    font-weight: 500;
+    color: #222222;
+    margin: 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tax-toggle-btn {
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 0;
+    outline: none;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.tax-toggle-btn:hover {
+    opacity: 0.9;
+}
+
+.tax-toggle-btn:focus {
+    box-shadow: 0 0 0 3px rgba(255, 56, 92, 0.2);
+}
+
+.tax-toggle-btn::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background-color: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: left 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tax-toggle-btn.on {
+    background-color: #FF385C;
+}
+
+.tax-toggle-btn.on::after {
+    left: 26px;
+}
+
+#tax-info {
+    background-color: #f8f8f8;
+    border-left: 4px solid #FF385C;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    color: #333333;
+}
+
+#tax-info p {
+    margin: 8px 0;
+    color: #555555;
+}
+
+#tax-info b {
+    color: #222222;
+}
+
+.btn-search {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 8px 16px !important;
+}
+
+.btn-search:hover {
+    background-color: #ff385c;
+    color: white;
+    border: none;
+}
+
+.search-bar {
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding:    0.5rem 3rem 0.5rem 3rem;
+    placeholder: "Search destinations";
+    placeholder-al
+}
